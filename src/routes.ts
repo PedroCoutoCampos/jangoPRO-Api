@@ -12,6 +12,8 @@ import { CheckSubscriptionController } from './controllers/haircut/CheckSubscrip
 import { CountHaircutsController } from './controllers/haircut/CountHaircutsController'
 import { DetailHaircutController } from './controllers/haircut/DetailHaircutController'
 
+import { NewScheduleController } from './controllers/schedule/NewScheduleController'
+
 import { isAuthenticated } from './middlewares/isAuthenticated'
 
 const router = Router();
@@ -30,5 +32,8 @@ router.get('/haircut/check', isAuthenticated, new CheckSubscriptionController().
 router.get('/haircut/count', isAuthenticated, new CountHaircutsController().handle)
 router.get('/haircut/detail', isAuthenticated, new DetailHaircutController().handle)
 
+// --- ROTA SERVIÇOS ---
+
+router.post('/schedule', isAuthenticated, new NewScheduleController().handle)
 
 export { router };
