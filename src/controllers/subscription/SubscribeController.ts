@@ -1,5 +1,5 @@
 import {Request, Response } from 'express'
-import { SubscribeService } from '../../services/subscriptions/SubscriptionService';
+import { SubscribeService } from '../../services/subscription/SubscribeService';
 
 class SubscribeController{
   async handle(request: Request, response: Response){

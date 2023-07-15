@@ -19,6 +19,7 @@ class SubscribeService {
       }
     )
 
+
     // Buscar o usuario e cadastrar ele no stripe caso nao tenha cadastrado
     const findUser = await prismaClient.user.findFirst({
       where:{
@@ -51,7 +52,7 @@ class SubscribeService {
     // inicializar o nosso checkout de pagamento
     const stripeCheckoutSession = await stripe.checkout.sessions.create({
       customer: customerId,
-      payment_method_types: ['card','boleto','pix'],
+      payment_method_types: ['card'],
       billing_address_collection: 'required',
       line_items: [
         { price: process.env.STRIPE_PRICE, quantity: 1 }
