@@ -15,6 +15,7 @@ class ListScheduleService{
         id: true,
         customer: true,
         haircut: true,
+        date: true, 
       }
     })
 
