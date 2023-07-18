@@ -1,0 +1,24 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "JangoPRO_app/package.json",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "JangoPRO_api/serverless-functions/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/JangoPRO_api/serverless-functions/$1.js"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/JangoPRO_app/$1"
+      }
+    ]
+  }
+  
