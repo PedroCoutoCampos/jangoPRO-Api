@@ -2,14 +2,14 @@
     "version": 2,
     "builds": [
       {
-        "src": "JangoPRO_app/package.json",
+        "src": "./src/server.ts",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/JangoPRO_api/serverless-functions/$1.js"
+        "dest": "/"
       }
     ]
   }

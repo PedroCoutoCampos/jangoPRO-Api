@@ -5,6 +5,8 @@ import { router } from './routes'
 
 const app = express();
 
+const port = process.env.PORT || 3333
+
 app.use((req, res, next) => {
   if(req.originalUrl === '/webhooks'){
     next()
@@ -30,4 +32,4 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 })
 
-app.listen(3333, () => console.log("SERVER ONLINE"))
+app.listen(port, () => console.log("SERVER ONLINE"))
