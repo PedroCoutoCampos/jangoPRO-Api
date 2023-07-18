@@ -5,7 +5,7 @@
   "repository": "https://gitlab.com/senac-projetos-de-desenvolvimento/2023-pedro-couto/JangoPro_api.git",
   "author": "PedroCoutoCampos <pedrocoutocampos@outlook.com>",
   "engines": { 
-  "node": "14.x"
+  "node": "18.13.0"
   },
   "license": "MIT",
   "scripts": {
