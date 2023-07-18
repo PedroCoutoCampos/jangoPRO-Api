@@ -1,4 +1,6 @@
+import { PrismaClient } from '@prisma/client';
 import prismaClient from "../../prisma";
+
 
 interface NewScheduleRequest{
   user_id: string;
@@ -9,13 +11,19 @@ interface NewScheduleRequest{
 }
 
 class NewScheduleService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
+
   async execute({ user_id, haircut_id, customer, date  }: NewScheduleRequest){
 
     if(customer === '' || haircut_id === ''){
       throw new Error("Não foi possivel agendar o serviço.")
     }
 
-    const schedule = await prismaClient.service.create({
+    const schedule = await this.prisma.service.create({
       data: {
         customer,
         date,
