@@ -1,4 +1,5 @@
 import {Request, Response} from 'express'
+import prismaClient from '../../prisma';
 import { UpdateUserService } from '../../services/user/UpdateUserService'
 
 class UpdateUserController{
@@ -6,7 +7,7 @@ class UpdateUserController{
     const { name, endereco } = request.body;
     const user_id = request.user_id;
 
-    const updateUser = new UpdateUserService();
+    const updateUser = new UpdateUserService(prismaClient);
 
     const user = await updateUser.execute({
       user_id,

@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 interface FinishRequest{
     schedule_id: string;
@@ -7,6 +7,11 @@ interface FinishRequest{
 
 
 class FinishScheduleService {
+    private prisma: PrismaClient;
+  
+    constructor(prisma: PrismaClient) {
+      this.prisma = prisma;
+    }
     async execute({ schedule_id, user_id}: FinishRequest) {
         if(schedule_id === '' || user_id === ''){
             throw new Error('Erro')
@@ -14,7 +19,7 @@ class FinishScheduleService {
 
         try{
 
-            const belongsToUser = await prismaClient.service.findFirst({
+            const belongsToUser = await this.prisma.service.findFirst({
                 where:{
                     id: schedule_id,
                     user_id: user_id
@@ -25,7 +30,7 @@ class FinishScheduleService {
                 throw new Error('Não esta autorizado')
             }
 
-            await prismaClient.service.delete({
+            await this.prisma.service.delete({
                 where:{
                     id: schedule_id
                 }

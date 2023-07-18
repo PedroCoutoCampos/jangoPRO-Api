@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 interface HaircutRequest{
   user_id: string;
@@ -9,9 +9,14 @@ interface HaircutRequest{
 } 
 
 class UpdateHaircutService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id, haircut_id, name, price, status = true}:HaircutRequest){
 
-    const user = await prismaClient.user.findFirst({
+    const user = await this.prisma.user.findFirst({
       where:{
         id: user_id
       },
@@ -24,7 +29,7 @@ class UpdateHaircutService{
       throw new Error("Assine o plano Premium para editar os cortes")
     }
 
-    const haircut = await prismaClient.haircut.update({
+    const haircut = await this.prisma.haircut.update({
       where:{
         id: haircut_id,
       },

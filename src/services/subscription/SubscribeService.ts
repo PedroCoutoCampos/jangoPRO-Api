@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 import Stripe from "stripe";
 
 interface SubscribeRequest {
@@ -6,6 +6,11 @@ interface SubscribeRequest {
 }
 
 class SubscribeService {
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id }: SubscribeRequest) {
     try {
       if (!user_id || typeof user_id !== "string") {
@@ -20,7 +25,7 @@ class SubscribeService {
       });
 
       // Buscar o usuario e cadastrar ele no stripe caso nao tenha cadastrado
-      const findUser = await prismaClient.user.findFirst({
+      const findUser = await this.prisma.user.findFirst({
         where: {
           id: user_id,
         },
@@ -34,7 +39,7 @@ class SubscribeService {
           email: findUser.email,
         });
 
-        await prismaClient.user.update({
+        await this.prisma.user.update({
           where: {
             id: user_id,
           },

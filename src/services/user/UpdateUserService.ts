@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 interface UserRequest{
   user_id: string;
@@ -7,10 +7,15 @@ interface UserRequest{
 }
 
 class UpdateUserService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id, name, endereco }: UserRequest){
 
     try{
-      const userAlreadyExists = await prismaClient.user.findFirst({
+      const userAlreadyExists = await this.prisma.user.findFirst({
         where:{
           id: user_id,
         }
@@ -20,7 +25,7 @@ class UpdateUserService{
         throw new Error("Usuário não existe!");
       }
 
-      const userUpdated = await prismaClient.user.update({
+      const userUpdated = await this.prisma.user.update({
         where:{
           id: user_id
         },

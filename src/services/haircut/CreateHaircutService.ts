@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 interface HaircutRequest{
   user_id: string;
@@ -8,20 +8,25 @@ interface HaircutRequest{
 
 
 class CreateHaircutService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id, name, price }: HaircutRequest){
     if(!name || !price){
       throw new Error("Erro ao incluir")
     }
 
     // Verifica quantos cortes o usuário tem
-    const myHaircuts = await prismaClient.haircut.count({
+    const myHaircuts = await this.prisma.haircut.count({
       where:{
         user_id: user_id
       }
     })
 
     // Verifica se é Premium
-    const user = await prismaClient.user.findFirst({
+    const user = await this.prisma.user.findFirst({
       where:{
         id: user_id,
       },
@@ -36,7 +41,7 @@ class CreateHaircutService{
     }
 
 
-    const haircut = await prismaClient.haircut.create({
+    const haircut = await this.prisma.haircut.create({
       data:{
         name: name,
         price: price,

@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 import Stripe from "stripe";
 
 interface CreatePortalRequest{
@@ -6,6 +6,11 @@ interface CreatePortalRequest{
 }
 
 class CreatePortalService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id }: CreatePortalRequest){
 
     const stripe = new Stripe(
@@ -20,7 +25,7 @@ class CreatePortalService{
     )
 
 
-    const findUser = await prismaClient.user.findFirst({
+    const findUser = await this.prisma.user.findFirst({
       where:{
         id: user_id
       }

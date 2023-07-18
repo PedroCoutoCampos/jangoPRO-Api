@@ -1,4 +1,5 @@
 import {Request, Response} from 'express'
+import prismaClient from '../../prisma';
 import { UpdateHaircutService } from '../../services/haircut/UpdateHaircutService'
 
 class UpdateHaircutController{
@@ -6,7 +7,7 @@ class UpdateHaircutController{
     const user_id = request.user_id;
     const { name, price, status, haircut_id } = request.body;
 
-    const updateHaircut = new UpdateHaircutService();
+    const updateHaircut = new UpdateHaircutService(prismaClient);
 
     const haircut = await updateHaircut.execute({
       user_id,

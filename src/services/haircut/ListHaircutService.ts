@@ -1,4 +1,4 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 interface HaircutRequest{
   user_id: string;
@@ -6,9 +6,14 @@ interface HaircutRequest{
 }
 
 class ListHaircutService{
+  private prisma: PrismaClient;
+  
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute({ user_id, status }: HaircutRequest){
 
-    const haircut = await prismaClient.haircut.findMany({
+    const haircut = await this.prisma.haircut.findMany({
       where:{
         user_id: user_id,
         status: status === 'true' ? true : false

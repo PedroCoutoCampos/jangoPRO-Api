@@ -1,9 +1,13 @@
-import prismaClient from "../../prisma";
+import { PrismaClient } from '@prisma/client';
 
 class UserDetailService {
+  private prisma: PrismaClient;
   
+  constructor(prisma: PrismaClient) {
+    this.prisma = prisma;
+  }
   async execute(user_id: string) {
-    const user = await prismaClient.user.findFirst({
+    const user = await this.prisma.user.findFirst({
       where: {
         id: user_id,
       },
@@ -26,7 +30,7 @@ class UserDetailService {
     return user;
   }
   async useres() {
-    const users = await prismaClient.user.findMany({
+    const users = await this.prisma.user.findMany({
       select: {
         id: true,
         name: true,

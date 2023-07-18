@@ -1,4 +1,5 @@
 import {Request, Response } from 'express'
+import prismaClient from '../../prisma';
 import { NewScheduleService } from '../../services/schedule/NewScheduleService'
 
 
@@ -11,7 +12,7 @@ class NewScheduleController{
     selectedDate.setHours(hours, minutes, 0, 0);
 
 
-    const newSchedule = new NewScheduleService();
+    const newSchedule = new NewScheduleService(prismaClient);
 
     const schedule = await newSchedule.execute({
       user_id,

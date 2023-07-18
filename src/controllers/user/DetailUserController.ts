@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
+import prismaClient from "../../prisma";
 import { UserDetailService } from "../../services/user/DetailUserService";
 
 class DetailUserController {
   async handle(request: Request, response: Response) {
     const user_id = request.user_id;
 
-    const userDetailService = new UserDetailService();
+    const userDetailService = new UserDetailService(prismaClient);
 
     const detailUser = await userDetailService.execute(user_id);
 
@@ -13,7 +14,7 @@ class DetailUserController {
   }
   async useres(request: Request, response: Response) {
     try {
-      const userDetailService = new UserDetailService();
+      const userDetailService = new UserDetailService(prismaClient );
       const users = await userDetailService.useres();
       return response.json(users);
     } catch (error) {

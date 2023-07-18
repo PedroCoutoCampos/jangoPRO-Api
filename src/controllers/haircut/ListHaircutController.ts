@@ -1,4 +1,5 @@
 import {Request, Response} from 'express'
+import prismaClient from '../../prisma';
 import { ListHaircutService } from '../../services/haircut/ListHaircutService'
 
 class ListHaircutController{
@@ -6,7 +7,7 @@ class ListHaircutController{
     const user_id = request.user_id;
     const status = request.query.status as string;
 
-    const listHaircuts = new ListHaircutService();
+    const listHaircuts = new ListHaircutService(prismaClient);
 
     const haircuts = await listHaircuts.execute({
       user_id, 
