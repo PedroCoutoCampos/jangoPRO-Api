@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { compare } from 'bcryptjs'
-import { sign } from 'jsonwebtoken'
+import { Secret, sign } from 'jsonwebtoken'
 
 interface AuthUserRequest{
   email: string;
@@ -33,16 +33,17 @@ class AuthUserService{
     if(!passwordMatch){
       throw new Error("Email/password incorrect")
     }
+    const jwtSecret = process.env.JWT_SECRET as Secret;
 
     const token = sign(
       {
         name: user.name,
         email: user.email,
       },
-      process.env.JWT_SECRET,
+      jwtSecret,      
       {
         subject: user.id,
-        expiresIn: '30d'
+        expiresIn: '1000d'
       }
     )
     
