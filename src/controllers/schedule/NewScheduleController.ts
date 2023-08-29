@@ -19,7 +19,6 @@ class NewScheduleController{
       haircut_id,
       customer,
       date: selectedDate,
-
     })
 
     return response.json(schedule);

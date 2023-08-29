@@ -6,7 +6,6 @@ interface NewScheduleRequest{
   haircut_id: string;
   customer: string;
   date: Date; 
-
 }
 
 class NewScheduleService{
