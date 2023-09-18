@@ -1,51 +1,42 @@
-import { PrismaClient, Barber, Haircut } from '@prisma/client';
-
-interface CreateBarberDTO {
-  name: string;
-  haircuts: Haircut[]; // Lista de objetos de corte
-}
-
-interface UpdateBarberDTO {
-  id: string;
-  name: string;
-  haircuts: Haircut[]; // Lista de objetos de corte
-}
+import { PrismaClient, Barber} from '@prisma/client';
 
 class BarbersService {
   private prisma: PrismaClient;
 
-  constructor(prisma: PrismaClient) {
-    this.prisma = prisma;
+  constructor() {
+    this.prisma = new PrismaClient();
   }
 
-  async create({ name, haircuts }: CreateBarberDTO) {
+  async createBarber(nome: string, telefone: string, email: string): Promise<Barber> {
+    if (!nome || !telefone || !email) {
+      throw new Error('Nome, telefone e email são obrigatórios.');
+    }
+  
     const barber = await this.prisma.barber.create({
       data: {
-        name,
-        haircuts: {
-          connect: haircuts.map(haircut => ({ id: haircut.id })),
-        },
+        nome,
+        telefone,
+        email,
       },
     });
-
+  
     return barber;
   }
 
-  async update({ id, name, haircuts }: UpdateBarberDTO) {
+  async updateBarber(id: string, nome: string, telefone: string, email: string): Promise<Barber | null> {
     const updatedBarber = await this.prisma.barber.update({
       where: { id },
       data: {
-        name,
-        haircuts: {
-          set: haircuts.map(haircut => ({ id: haircut.id })),
-        },
+        nome: nome,
+        telefone,
+        email
       },
     });
 
     return updatedBarber;
   }
 
-  async delete(id: string) {
+  async deleteBarber(id: string): Promise<void> {
     await this.prisma.barber.delete({
       where: { id },
     });

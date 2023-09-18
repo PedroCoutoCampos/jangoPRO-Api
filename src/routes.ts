@@ -52,10 +52,10 @@ router.post('/webhooks',express.raw({ type: 'application/json'}), new WebhooksCo
 router.post('/create-portal', isAuthenticated, new CreatePortalController().handle)
 
 // --- ROTAS Barbeiros ---
-router.post('/barbers', isAuthenticated, new BarbersController().create);
-router.get('/barbers', isAuthenticated, new BarbersController().list);
-router.put('/barbers/:id', isAuthenticated, new BarbersController().update);
-router.delete('/barbers/:id', isAuthenticated, new BarbersController().delete);
+router.post('/barbers', new BarbersController().create);
+router.get('/barbers', new BarbersController().list);
+router.put('/barbers/:id', new BarbersController().update);
+router.delete('/barbers/:id', new BarbersController().delete);
 
 
 export { router };

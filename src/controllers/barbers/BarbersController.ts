@@ -1,23 +1,24 @@
 import { Request, Response } from 'express';
-import prismaClient from '../../prisma';
+import { Prisma, PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 class BarbersController {
-  async create(req: Request, res: Response) {
+  async create(req, res) {
     try {
-      const { name, haircuts } = req.body;
+      const { nome, telefone, email } = req.body;
   
-      const createdBarber = await prismaClient.barber.create({
+      if (!nome || !telefone || !email) {
+        return res.status(400).json({ message: 'Nome, telefone e email são obrigatórios.' });
+      }
+    
+      const createdBarber = await prisma.barber.create({
         data: {
-          name,
-          haircuts: {
-            create: haircuts.map(haircutName => ({
-              name: haircutName,
-            })),
-          },
+          nome,
+          telefone,
+          email,
         },
-        include: {
-          haircuts: true,
-        },
+       
       });
   
       return res.json(createdBarber);
@@ -26,14 +27,12 @@ class BarbersController {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
+  
 
+  
   async list(req: Request, res: Response) {
     try {
-      const barbers = await prismaClient.barber.findMany({
-        include: {
-          haircuts: true,
-        },
-      });
+      const barbers = await prisma.barber.findMany();
   
       return res.json(barbers);
     } catch (error) {
@@ -45,21 +44,14 @@ class BarbersController {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { name, haircuts } = req.body;
+      const { nome, telefone, email } = req.body;
   
-      const updatedBarber = await prismaClient.barber.update({
+      const updatedBarber = await prisma.barber.update({
         where: { id },
         data: {
-          name,
-          haircuts: {
-            connectOrCreate: haircuts.map(haircutName => ({
-              where: { name: haircutName },
-              create: { name: haircutName },
-            })),
-          },
-        },
-        include: {
-          haircuts: true,
+          nome,
+          telefone,
+          email
         },
       });
   
@@ -69,12 +61,12 @@ class BarbersController {
       return res.status(500).json({ message: 'Internal server error' });
     }
   }
-
+  
   async delete(req: Request, res: Response) {
     try {
       const { id } = req.params;
   
-      await prismaClient.barber.delete({
+      await prisma.barber.delete({
         where: { id },
       });
   
