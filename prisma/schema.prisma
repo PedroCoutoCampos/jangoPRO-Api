@@ -52,7 +52,7 @@ model Haircut {
 model Service {
   id         String    @id @default(uuid())
   customer   String
-  date       DateTime? // Adicione essa linha para incluir a propriedade 'date'
+  date       DateTime? 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   haircut    Haircut   @relation(fields: [haircut_id], references: [id])
