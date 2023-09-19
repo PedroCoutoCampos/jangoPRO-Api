@@ -42,23 +42,35 @@ model Haircut {
   status     Boolean   @default(true)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  user_id    String
-  user       User      @relation(fields: [user_id], references: [id])
+  user_id    String?
+  user       User?     @relation(fields: [user_id], references: [id])
   service    Service[]
 
   @@map("haircuts")
 }
 
 model Service {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   customer   String
-  date       DateTime?  // Adicione essa linha para incluir a propriedade 'date'
+  date       DateTime? // Adicione essa linha para incluir a propriedade 'date'
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-
-  @@map("services")
-  haircut    Haircut  @relation(fields: [haircut_id], references: [id])
+  haircut    Haircut   @relation(fields: [haircut_id], references: [id])
   haircut_id String
-  user       User     @relation(fields: [user_id], references: [id])
+  user       User      @relation(fields: [user_id], references: [id])
   user_id    String
+  barber     Barber?   @relation(fields: [barber_id], references: [id]) 
+  barber_id  String?   
+  @@map("services")
+}
+
+model Barber {
+  id         String    @id @default(uuid())
+  nome       String
+  telefone   String
+  email      String
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+  services   Service[] 
+  @@map("barbers")
 }

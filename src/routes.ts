@@ -20,6 +20,7 @@ import { isAuthenticated } from './middlewares/isAuthenticated'
 import { SubscribeController } from './controllers/subscription/SubscribeController'
 import { WebhooksController } from './controllers/subscription/WebhooksController'
 import { CreatePortalController } from './controllers/subscription/CreatePortalController'
+import { BarbersController } from './controllers/barbers/BarbersController'
 
 const router = Router();
 
@@ -49,6 +50,12 @@ router.delete('/schedule', isAuthenticated, new FinishScheduleController().handl
 router.post('/subscribe', isAuthenticated, new SubscribeController().handle)
 router.post('/webhooks',express.raw({ type: 'application/json'}), new WebhooksController().handle)
 router.post('/create-portal', isAuthenticated, new CreatePortalController().handle)
+
+// --- ROTAS Barbeiros ---
+router.post('/barbers', new BarbersController().create);
+router.get('/barbers', new BarbersController().list);
+router.put('/barbers/:id', new BarbersController().update);
+router.delete('/barbers/:id', new BarbersController().delete);
 
 
 export { router };
