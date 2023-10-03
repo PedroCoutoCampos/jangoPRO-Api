@@ -1,4 +1,4 @@
-import { PrismaClient, Barber} from '@prisma/client';
+import { PrismaClient, Barber } from '@prisma/client';
 
 class BarbersService {
   private prisma: PrismaClient;
@@ -7,29 +7,35 @@ class BarbersService {
     this.prisma = new PrismaClient();
   }
 
-  async createBarber(nome: string, telefone: string, email: string): Promise<Barber> {
+  async createBarber(nome: string, telefone: string, email: string, haircutIds: string[]): Promise<Barber> {
     if (!nome || !telefone || !email) {
       throw new Error('Nome, telefone e email são obrigatórios.');
     }
-  
+
     const barber = await this.prisma.barber.create({
       data: {
         nome,
         telefone,
         email,
+        haircuts: {
+          connect: haircutIds.map((id) => ({ id })),
+        },
       },
     });
-  
+
     return barber;
   }
 
-  async updateBarber(id: string, nome: string, telefone: string, email: string): Promise<Barber | null> {
+  async updateBarber(id: string, nome: string, telefone: string, email: string, haircutIds: string[]): Promise<Barber | null> {
     const updatedBarber = await this.prisma.barber.update({
       where: { id },
       data: {
-        nome: nome,
+        nome,
         telefone,
-        email
+        email,
+        haircuts: {
+          set: haircutIds.map((id) => ({ id })),
+        },
       },
     });
 

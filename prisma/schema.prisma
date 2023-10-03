@@ -45,9 +45,10 @@ model Haircut {
   user_id    String?
   user       User?     @relation(fields: [user_id], references: [id])
   service    Service[]
-
+  barbers    Barber[]  
   @@map("haircuts")
 }
+
 
 model Service {
   id         String    @id @default(uuid())
@@ -66,11 +67,12 @@ model Service {
 
 model Barber {
   id         String    @id @default(uuid())
-  nome       String
-  telefone   String
-  email      String
+  nome       String    
+  telefone   String    
+  email      String    
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  services   Service[] 
+  services   Service[]
+  haircuts   Haircut[] 
   @@map("barbers")
 }
