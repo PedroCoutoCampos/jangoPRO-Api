@@ -12,7 +12,6 @@ import { CheckSubscriptionController } from './controllers/haircut/CheckSubscrip
 import { CountHaircutsController } from './controllers/haircut/CountHaircutsController'
 import { DetailHaircutController } from './controllers/haircut/DetailHaircutController'
 
-import { NewScheduleController } from './controllers/schedule/NewScheduleController'
 import { ListScheduleController } from './controllers/schedule/ListScheduleController'
 import { FinishScheduleController } from './controllers/schedule/FinishScheduleController'
 
@@ -21,6 +20,7 @@ import { SubscribeController } from './controllers/subscription/SubscribeControl
 import { WebhooksController } from './controllers/subscription/WebhooksController'
 import { CreatePortalController } from './controllers/subscription/CreatePortalController'
 import { BarbersController } from './controllers/barbers/BarbersController'
+import { NewScheduleController } from './controllers/schedule/NewScheduleController'
 
 const router = Router();
 

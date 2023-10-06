@@ -56,10 +56,10 @@ model Service {
   date       DateTime? 
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  haircut    Haircut   @relation(fields: [haircut_id], references: [id])
+  haircut    Haircut?   @relation(fields: [haircut_id], references: [id])
   haircut_id String
-  user       User      @relation(fields: [user_id], references: [id])
-  user_id    String
+  user       User?      @relation(fields: [user_id], references: [id])
+  user_id    String?
   barber     Barber?   @relation(fields: [barber_id], references: [id]) 
   barber_id  String?   
   @@map("services")
