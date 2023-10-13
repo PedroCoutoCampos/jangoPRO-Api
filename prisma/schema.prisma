@@ -45,34 +45,36 @@ model Haircut {
   user_id    String?
   user       User?     @relation(fields: [user_id], references: [id])
   service    Service[]
-  barbers    Barber[]  
+  barbers    Barber[]
+
   @@map("haircuts")
 }
-
 
 model Service {
   id         String    @id @default(uuid())
   customer   String
-  date       DateTime? 
+  date       DateTime?
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
-  haircut    Haircut?   @relation(fields: [haircut_id], references: [id])
+  haircut    Haircut?  @relation(fields: [haircut_id], references: [id])
   haircut_id String
-  user       User?      @relation(fields: [user_id], references: [id])
+  user       User?     @relation(fields: [user_id], references: [id])
   user_id    String?
-  barber     Barber?   @relation(fields: [barber_id], references: [id]) 
-  barber_id  String?   
+  barber     Barber?   @relation(fields: [barber_id], references: [id])
+  barber_id  String?
+
   @@map("services")
 }
 
 model Barber {
   id         String    @id @default(uuid())
-  nome       String    
-  telefone   String    
-  email      String    
+  nome       String
+  telefone   String
+  email      String
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
   services   Service[]
-  haircuts   Haircut[] 
+  haircuts   Haircut[]
+
   @@map("barbers")
 }
