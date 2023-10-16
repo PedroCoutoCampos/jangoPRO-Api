@@ -6,10 +6,10 @@ const prisma = new PrismaClient();
 class BarbersController {
   async create(req: Request, res: Response) {
     try {
-      const { nome, telefone, email, haircutIds } = req.body;
-      
-      if (!nome || !telefone || !email) {
-        return res.status(400).json({ message: 'Nome, telefone e email são obrigatórios.' });
+      const { nome, telefone, email, haircutIds, userId } = req.body; // Adicionado userId
+
+      if (!nome || !telefone || !email || !userId) { // Certifique-se de que userId seja fornecido
+        return res.status(400).json({ message: 'Nome, telefone, email e userId são obrigatórios.' });
       }
     
       const createdBarber = await prisma.barber.create({
@@ -17,6 +17,7 @@ class BarbersController {
           nome,
           telefone,
           email,
+          User: { connect: { id: userId } }, // Associe o Barber ao User usando o ID do usuário
           haircuts: {
             connect: haircutIds.map((id) => ({ id })),
           },
