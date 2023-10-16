@@ -22,6 +22,7 @@ import { CreatePortalController } from './controllers/subscription/CreatePortalC
 import { BarbersController } from './controllers/barbers/BarbersController'
 import { NewScheduleController } from './controllers/schedule/NewScheduleController'
 
+
 const router = Router();
 
 // --- ROTAS USER ---
@@ -30,7 +31,6 @@ router.post('/session', new AuthUserController().handle)
 router.get('/me', isAuthenticated, new DetailUserController().handle)
 router.put('/users', isAuthenticated, new UpdateUserController().handle)
 router.get('/users', new DetailUserController().useres);
-
 
 // --- ROTA HAIRCUT ---
 router.post('/haircut', isAuthenticated, new CreateHaircutController().handle) 
@@ -41,7 +41,6 @@ router.get('/haircut/count', isAuthenticated, new CountHaircutsController().hand
 router.get('/haircut/detail', isAuthenticated, new DetailHaircutController().handle)
  
 // --- ROTA SERVIÇOS ---
-
 router.post('/schedule', isAuthenticated, new NewScheduleController().handle)
 router.get('/schedule', isAuthenticated, new ListScheduleController().handle)
 router.delete('/schedule', isAuthenticated, new FinishScheduleController().handle)
@@ -51,7 +50,7 @@ router.post('/subscribe', isAuthenticated, new SubscribeController().handle)
 router.post('/webhooks',express.raw({ type: 'application/json'}), new WebhooksController().handle)
 router.post('/create-portal', isAuthenticated, new CreatePortalController().handle)
 
-// --- ROTAS Barbeiros ---
+// --- ROTAS BARBEIROS ---
 router.post('/barbers', new BarbersController().create);
 router.get('/barbers', new BarbersController().list);
 router.put('/barbers/:id', new BarbersController().update);

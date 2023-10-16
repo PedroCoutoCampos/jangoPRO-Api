@@ -3,8 +3,12 @@ import { hash } from 'bcryptjs'
 
 interface UserRequest{
   name: string;
+  endereco: string;
+  telefone: string;
   email: string;
   password: string;
+  userType: string,
+  userAdmin: string;
 }
 
 class CreateUserService{
@@ -13,7 +17,7 @@ class CreateUserService{
   constructor(prisma: PrismaClient) {
     this.prisma = prisma;
   }
-  async execute({ name, email, password }: UserRequest ){
+  async execute({ name, endereco, telefone, email, password, userType, userAdmin }: UserRequest ){
     
     if(!email){
       throw new Error("Email incorrect");
@@ -34,8 +38,13 @@ class CreateUserService{
     const user = await this.prisma.user.create({
       data:{
         name: name,
+        endereco: endereco,
+        telefone: telefone,
         email: email,
-        password: passwordHash
+        password: passwordHash,
+        userType: userType,
+        userAdmin: userAdmin
+
       },
       select:{
         id: true,

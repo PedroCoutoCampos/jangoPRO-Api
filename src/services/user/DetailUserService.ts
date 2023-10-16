@@ -14,8 +14,11 @@ class UserDetailService {
       select: {
         id: true,
         name: true,
+        userType: true,
+        telefone:true,
         email: true,
         endereco: true,
+        userAdmin: true,
         subscriptions: {
           select: {
             id: true,
@@ -34,8 +37,13 @@ class UserDetailService {
       select: {
         id: true,
         name: true,
+        userType: true,
+        telefone: true,
         email: true,
         endereco: true,
+        userAdmin: true,
+        haircuts:true,
+        service:true,
         subscriptions: {
           select: {
             id: true,

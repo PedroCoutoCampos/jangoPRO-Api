@@ -13,12 +13,15 @@ model User {
   email              String
   endereco           String?
   password           String
+  userType           String
+  telefone           String?
   stripe_customer_id String?
   created_at         DateTime?     @default(now())
   updated_at         DateTime?     @default(now())
   haircuts           Haircut[]
   service            Service[]
   subscriptions      Subscription?
+  userAdmin          String?
 
   @@map("users")
 }
