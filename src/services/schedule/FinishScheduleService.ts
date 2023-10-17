@@ -1,46 +1,38 @@
 import { PrismaClient } from '@prisma/client';
 
-interface FinishRequest{
+interface FinishRequest {
     schedule_id: string;
-    user_id:string;
 }
-
 
 class FinishScheduleService {
     private prisma: PrismaClient;
-  
+
     constructor(prisma: PrismaClient) {
-      this.prisma = prisma;
+        this.prisma = prisma;
     }
-    async execute({ schedule_id, user_id}: FinishRequest) {
-        if(schedule_id === '' || user_id === ''){
-            throw new Error('Erro')
-        }
 
-        try{
-
+    async execute({ schedule_id }: FinishRequest) {
+        try {
             const belongsToUser = await this.prisma.service.findFirst({
-                where:{
+                where: {
                     id: schedule_id,
-                    user_id: user_id
-                }
-            })
+                },
+            });
 
-            if(!belongsToUser){
-                throw new Error('Não esta autorizado')
+            if (!belongsToUser) {
+                throw new Error('Agendamento não encontrado');
             }
 
             await this.prisma.service.delete({
-                where:{
-                    id: schedule_id
-                }
-            })
+                where: {
+                    id: schedule_id,
+                },
+            });
 
-            return{ message: "Finalizado com sucesso"}
-
-        }catch(err){
+            return { message: 'Finalizado com sucesso' };
+        } catch (err) {
             console.log(err);
-            throw new Error    
+            throw new Error('Erro ao finalizar o serviço');
         }
     }
 }

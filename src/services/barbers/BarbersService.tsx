@@ -7,9 +7,9 @@ class BarbersService {
     this.prisma = new PrismaClient();
   }
 
-  async createBarber(nome: string, telefone: string, email: string, haircutIds: string[]): Promise<Barber> {
-    if (!nome || !telefone || !email) {
-      throw new Error('Nome, telefone e email são obrigatórios.');
+  async createBarber(nome: string, telefone: string, email: string, haircutIds: string[], userId: string): Promise<Barber> {
+    if (!nome || !telefone || !email || !userId) {
+      throw new Error('Nome, telefone, email e userId são obrigatórios.');
     }
 
     const barber = await this.prisma.barber.create({
@@ -17,6 +17,7 @@ class BarbersService {
         nome,
         telefone,
         email,
+        User: { connect: { id: userId } }, // Associe o Barber ao User usando o ID do usuário
         haircuts: {
           connect: haircutIds.map((id) => ({ id })),
         },

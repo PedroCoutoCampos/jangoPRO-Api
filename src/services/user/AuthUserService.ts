@@ -51,6 +51,7 @@ class AuthUserService{
     return {
       id: user?.id,
       name: user?.name,
+      userType: user?.userType, 
       email: user?.email,
       endereco: user?.endereco,
       token: token,
