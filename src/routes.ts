@@ -42,7 +42,7 @@ router.get('/haircut/detail', isAuthenticated, new DetailHaircutController().han
  
 // --- ROTA SERVIÇOS ---
 router.post('/schedule', isAuthenticated, new NewScheduleController().handle)
-router.get('/schedule', isAuthenticated, new ListScheduleController().handle)
+router.get('/schedule', new ListScheduleController().handle)
 router.delete('/schedule', isAuthenticated, new FinishScheduleController().handle)
 
 // --- ROTAS PAGAMENTOS ---

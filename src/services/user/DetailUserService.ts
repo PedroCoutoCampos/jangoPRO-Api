@@ -19,6 +19,9 @@ class UserDetailService {
         email: true,
         endereco: true,
         userAdmin: true,
+        haircuts:true,
+        service:true,
+        barbers: true,
         subscriptions: {
           select: {
             id: true,
@@ -44,6 +47,7 @@ class UserDetailService {
         userAdmin: true,
         haircuts:true,
         service:true,
+        barbers: true,
         subscriptions: {
           select: {
             id: true,
