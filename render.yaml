@@ -5,5 +5,5 @@ services:
     startCommand: yarn dev
     runtime: node
     env:
-      - key: '18.13.0'
+      - key: development
         value: production
