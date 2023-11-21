@@ -1,0 +1,2 @@
+buildCommand: yarn install && yarn build
+startCommand: yarn dev
