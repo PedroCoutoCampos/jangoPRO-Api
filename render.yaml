@@ -1,2 +1,5 @@
-buildCommand: yarn install && yarn build
-startCommand: yarn dev
+services:
+  - name: backend
+    type: web
+    buildCommand: yarn install
+    startCommand: yarn dev
