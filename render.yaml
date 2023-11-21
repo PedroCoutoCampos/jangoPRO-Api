@@ -2,8 +2,5 @@ services:
   - name: backend
     type: web
     buildCommand: yarn install
-    startCommand: yarn dev
+    startCommand: yarn start
     runtime: node
-    env:
-      - key: development
-        value: production
