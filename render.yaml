@@ -3,3 +3,7 @@ services:
     type: web
     buildCommand: yarn install
     startCommand: yarn dev
+    runtime: node
+    env:
+      - key: '18.13.0'
+        value: production
