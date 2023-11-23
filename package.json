@@ -1,7 +1,7 @@
 {
   "name": "jango-pro-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "start": "index.js",
   "repository": "https://gitlab.com/senac-projetos-de-desenvolvimento/2023-pedro-couto/JangoPro_api.git",
   "author": "PedroCoutoCampos <pedrocoutocampos@outlook.com>",
   "license": "MIT",
