@@ -6,7 +6,7 @@
   "author": "PedroCoutoCampos <pedrocoutocampos@outlook.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only src/server.ts ",
+    "start": "ts-node-dev --transpile-only src/server.ts ",
     "build": "next build"
   },
   "devDependencies": {
